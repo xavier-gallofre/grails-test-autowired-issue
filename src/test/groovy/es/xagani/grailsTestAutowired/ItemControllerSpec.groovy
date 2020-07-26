@@ -15,7 +15,7 @@ class ItemControllerSpec extends Specification implements ControllerUnitTest<Ite
 
     void "Test the index action returns the correct model"() {
         given:
-        controller.itemService = Mock(ItemService) {
+        controller.service = Mock(ItemService) {
             1 * list(_) >> []
             1 * count() >> 0
         }
@@ -49,7 +49,7 @@ class ItemControllerSpec extends Specification implements ControllerUnitTest<Ite
 
     void "Test the save action correctly persists"() {
         given:
-        controller.itemService = Mock(ItemService) {
+        controller.service = Mock(ItemService) {
             1 * save(_ as Item)
         }
 
@@ -70,7 +70,7 @@ class ItemControllerSpec extends Specification implements ControllerUnitTest<Ite
 
     void "Test the save action with an invalid instance"() {
         given:
-        controller.itemService = Mock(ItemService) {
+        controller.service = Mock(ItemService) {
             1 * save(_ as Item) >> { Item item ->
                 throw new ValidationException("Invalid instance", item.errors)
             }
@@ -89,7 +89,7 @@ class ItemControllerSpec extends Specification implements ControllerUnitTest<Ite
 
     void "Test the show action with a null id"() {
         given:
-        controller.itemService = Mock(ItemService) {
+        controller.service = Mock(ItemService) {
             1 * get(null) >> null
         }
 
@@ -102,7 +102,7 @@ class ItemControllerSpec extends Specification implements ControllerUnitTest<Ite
 
     void "Test the show action with a valid id"() {
         given:
-        controller.itemService = Mock(ItemService) {
+        controller.service = Mock(ItemService) {
             1 * get(2) >> new Item()
         }
 
@@ -115,7 +115,7 @@ class ItemControllerSpec extends Specification implements ControllerUnitTest<Ite
 
     void "Test the edit action with a null id"() {
         given:
-        controller.itemService = Mock(ItemService) {
+        controller.service = Mock(ItemService) {
             1 * get(null) >> null
         }
 
@@ -128,7 +128,7 @@ class ItemControllerSpec extends Specification implements ControllerUnitTest<Ite
 
     void "Test the edit action with a valid id"() {
         given:
-        controller.itemService = Mock(ItemService) {
+        controller.service = Mock(ItemService) {
             1 * get(2) >> new Item()
         }
 
@@ -153,7 +153,7 @@ class ItemControllerSpec extends Specification implements ControllerUnitTest<Ite
 
     void "Test the update action correctly persists"() {
         given:
-        controller.itemService = Mock(ItemService) {
+        controller.service = Mock(ItemService) {
             1 * save(_ as Item)
         }
 
@@ -174,7 +174,7 @@ class ItemControllerSpec extends Specification implements ControllerUnitTest<Ite
 
     void "Test the update action with an invalid instance"() {
         given:
-        controller.itemService = Mock(ItemService) {
+        controller.service = Mock(ItemService) {
             1 * save(_ as Item) >> { Item item ->
                 throw new ValidationException("Invalid instance", item.errors)
             }
@@ -203,7 +203,7 @@ class ItemControllerSpec extends Specification implements ControllerUnitTest<Ite
 
     void "Test the delete action with an instance"() {
         given:
-        controller.itemService = Mock(ItemService) {
+        controller.service = Mock(ItemService) {
             1 * delete(2)
         }
 

@@ -1,21 +1,24 @@
 package es.xagani.grailsTestAutowired
 
 import grails.validation.ValidationException
+import org.springframework.beans.factory.annotation.Autowired
+
 import static org.springframework.http.HttpStatus.*
 
 class ItemController {
 
-    ItemService itemService
+    @Autowired
+    ItemService service
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond itemService.list(params), model:[itemCount: itemService.count()]
+        respond service.list(params), model:[itemCount: service.count()]
     }
 
     def show(Long id) {
-        respond itemService.get(id)
+        respond service.get(id)
     }
 
     def create() {
@@ -29,7 +32,7 @@ class ItemController {
         }
 
         try {
-            itemService.save(item)
+            service.save(item)
         } catch (ValidationException e) {
             respond item.errors, view:'create'
             return
@@ -45,7 +48,7 @@ class ItemController {
     }
 
     def edit(Long id) {
-        respond itemService.get(id)
+        respond service.get(id)
     }
 
     def update(Item item) {
@@ -55,7 +58,7 @@ class ItemController {
         }
 
         try {
-            itemService.save(item)
+            service.save(item)
         } catch (ValidationException e) {
             respond item.errors, view:'edit'
             return
@@ -76,7 +79,7 @@ class ItemController {
             return
         }
 
-        itemService.delete(id)
+        service.delete(id)
 
         request.withFormat {
             form multipartForm {
