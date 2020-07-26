@@ -2,7 +2,7 @@
 grails:
     profile: web
     codegen:
-        defaultPackage: es.xagani.grails-test-autowired
+        defaultPackage: es.xagani.grailsTestAutowired
     gorm:
         reactor:
             # Whether to translate GORM events into Reactor events
